@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="reset.css">
+	<style>
+		#ul{
+			overflow:hidden;
+		}
+		#ul li{
+			float:left;
+			margin:30px;
+			margin-bottom:10px;
+		}
+		#box{
+			position:fixed;
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+		}
+	</style>
+	<script src="./city.js"></script>
+	<script>
+		console.log(cities);
+		onload = function(){
+			// 获取省份元素节点
+			var province = document.getElementById("province");
+			// 获取市元素节点
+			var city = document.getElementById("city");
+			// 获取区/县元素节点
+			var area = document.getElementById("area");
+			// 枚举cities对象
+			for(var i in cities){
+				// 创建一个option标签
+				var option = document.createElement("option");
+				// 为创建的option标签添加内容
+				option.innerHTML = i;
+				// 为创建的option标签添加value
+				option.value = i;
+				// 将创建好的option添加到select标签中
+				province.appendChild(option);
+			}
+			// 为select标签绑定onchange事件
+			province.onchange = function(){
+				// 重置市选择
+				city.innerHTML = "<option>--请选择--</option>";
+				// 重置区选择
+				area.innerHTML = "<option>--请选择--</option>";
+				// 关闭区/县
+				area.disabled = true;
+				// 获取当前select标签的内容
+				var val = this.value;
+				// 对应省份中所以的市
+				moreCity = cities[val];
+				// 将市的select标签的disabled改为false
+				city.disabled = false;
+				// 枚举所以市
+				var x = 0;
+				for(var n in moreCity){
+					// 创建一个option标签
+					var option = document.createElement("option");
+					// 为创建的option标签添加内容
+					option.innerHTML = n;
+					// 为创建的option标签添加value
+					option.value = n;
+					// 将创建好的option添加到select标签中
+					city.appendChild(option);
+					x++;
+				}
+				if(x == 1){
+					// 将市的内容直接改为省的内容
+					city.value = this.value;
+					// 打开区/县
+					area.disabled = false;
+					// 获取所有区/县的数据
+					var moreArea = moreCity[this.value];
+					// 枚举数组中的每一个数据
+					for(var m = 0; m < moreArea.length; m++){
+						// 创建一个option标签
+						var option = document.createElement("option");
+						// 为创建的option标签添加内容
+						option.innerHTML = moreArea[m];
+						// 将创建好的option添加到select标签中
+						area.appendChild(option);
+					}
+				}
+			}
+			city.onchange = function(){
+				// 重置区选择
+				area.innerHTML = "<option>--请选择--</option>";
+				// 打开区/县
+				area.disabled = false;
+				// 获取所有区/县的数据
+				var moreArea = moreCity[this.value];
+				// 枚举数组中的每一个数据
+				for(var m = 0; m < moreArea.length; m++){
+					// 创建一个option标签
+					var option = document.createElement("option");
+					// 为创建的option标签添加内容
+					option.innerHTML = moreArea[m];
+					// 将创建好的option添加到select标签中
+					area.appendChild(option);
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul">
+			<li>省</li>
+			<li>市</li>
+			<li>区/县</li>
+		</ul>
+		<div>
+			<select id="province">
+				<option>--请选择--</option>
+			</select>
+			<select id="city" disabled>
+				<option>--请选择--</option>
+			</select>
+			<select id="area" disabled>
+				<option>--请选择--</option>
+			</select>
+		</div>
+	</div>
+</body>
+</html>
