@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片懒加载</title>
+</head>
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	.box{
+		width: 908px;
+		margin: 0 auto;
+	}
+	.box img{
+		display: block;
+		width: 227px;
+		height: 133px;
+		float: left;
+	}
+</style>
+<body>
+	<div class="box">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+		<img src="" alt="" data-src="images/1.png">
+		<img src="" alt="" data-src="images/2.png">
+		<img src="" alt="" data-src="images/3.png">
+		<img src="" alt="" data-src="images/4.png">
+		<img src="" alt="" data-src="images/5.png">
+		<img src="" alt="" data-src="images/6.png">
+		<img src="" alt="" data-src="images/7.png">
+	</div>
+	<script>
+		let imgList = document.querySelectorAll(".box > img");
+		function handleScroll(){
+			//获取页面卷曲的距离
+			let Y = document.documentElement.scrollTop || document.body.scrollTop;
+			//获取页面可视距离
+			let WindowHeight = window.innerHeight;
+			imgList.forEach(function(item,index){
+				//获取每个元素到顶部的距离
+				let top = item.offsetTop;
+				//如果元素到顶部的距离 小于 页面可视距离与页面卷曲的距离的总和
+				if(top < WindowHeight + Y){
+					//模拟加载延迟
+					setTimeout(function(){
+						item.src = item.getAttribute("data-src");
+					},100);
+				}
+			});
+		}
+		handleScroll();
+		window.onscroll = handleScroll;
+	</script>
+</body>
+</html>
